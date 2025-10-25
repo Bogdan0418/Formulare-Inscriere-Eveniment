@@ -9,11 +9,17 @@ section {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background: url('https://bosromania.ro/uploads/files/.bosromania/.website/.table/.main.banner/2/background/en/giant/banner-home.png') no-repeat;
   background-size: cover;
   background-position: center;
+  overflow: hidden;
+}
+
+body{
+  width: 100vw;
+  height: 100vh;
 }
 
 .form-box {
