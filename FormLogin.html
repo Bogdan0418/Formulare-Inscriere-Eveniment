@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ro-RO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formular înscriere eveniment">
+  <title>Formular Înscriere Eveniment</title>
+  <link rel="stylesheet" href="styleForm.css">
+</head>
+
+<body>
+  <section>
+    <div class="form-box">
+      <form id="multiStepForm" novalidate>
+
+        <!-- Pasul 1 - Introducere -->
+        <div class="form-step active">
+          <h2>Bun venit!</h2>
+          <p class="intro-text">
+            Ne bucurăm că dorești să participi la evenimentul nostru! <br><br>
+            Completează acest formular pentru a te înscrie.
+          </p>
+          <div class="btn-box center">
+            <button type="button" id="next1">Începe</button>
+          </div>
+        </div>
+
+        <!-- Pasul 2 - Date personale -->
+        <div class="form-step">
+          <h2>Date personale</h2>
+          <div class="input-box">
+            <input type="text" id="nume" required pattern="^[A-Za-zĂăÎîȘșȚțâÂ]+$" title="Doar de litere. Ex: Ion">
+            <label>Nume</label>
+          </div>
+          <div class="input-box">
+            <input type="text" id="prenume" required pattern="^[A-Za-zĂăÎîȘșȚțâÂ]+$" title="Doar de litere. Ex: Popescu">
+            <label>Prenume</label>
+          </div>
+          <div class="input-box">
+            <input type="tel" id="telefon" required pattern="07[0-9]{8}" maxlength="10" title="Trebuie să înceapă cu 07 și să aibă 10 cifre.">
+            <label>Număr de telefon</label>
+          </div>
+          <div class="input-box">
+            <input type="email" id="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$" title="Exemplu valid: nume@gmail.com">
+            <label>Email</label>
+          </div>
+          <div class="btn-box">
+            <button type="button" id="back1">Înapoi</button>
+            <button type="button" id="next2">Următorul</button>
+          </div>
+        </div>
+
+        <!-- Pasul 3 - Întrebări -->
+        <div class="form-step">
+          <h2>Întrebări</h2>
+          <div class="input-box textarea-box">
+            <textarea id="q1" required placeholder="De unde ați auzit de noi?"></textarea>
+          </div>
+          <div class="input-box textarea-box">
+            <textarea id="q2" required placeholder="Ce v-a atras la evenimentul nostru?"></textarea>
+          </div>
+          <div class="input-box textarea-box">
+            <textarea id="q3" required placeholder="Ce așteptări aveți de la evenimentul nostru?"></textarea>
+          </div>
+          <div class="btn-box">
+            <button type="button" id="back2">Înapoi</button>
+            <button type="button" id="next3">Trimite</button>
+          </div>
+        </div>
+
+        <!-- Pasul 4 - Succes -->
+        <div class="form-step">
+          <h2>Înscriere finalizată</h2>
+          <p class="success-message">
+            Mulțumim pentru înscriere! 🎉<br><br>
+            Vei primi în curând un email cu detaliile evenimentului.
+          </p>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="logo-container">
+      <img src="https://bosromania.ro/uploads/files/.bosromania/.website/.table/.identity/.logo/1/header/en/big/logo-alb-banner-1.png" alt="BOS Logo">
+      <h3>Business Organization for Students</h3>
+    </div>
+  </section>
+
+  <script>
+    const formSteps = document.querySelectorAll('.form-step');
+    let currentStep = 0;
+
+    function showStep(index) {
+      formSteps.forEach((step, i) => {
+        step.classList.toggle('active', i === index);
+      });
+    }
+
+    // ✅ Funcție care validează doar câmpurile vizibile
+    function validateCurrentStep() {
+      const activeStep = formSteps[currentStep];
+      const inputs = activeStep.querySelectorAll('input, textarea');
+      for (let input of inputs) {
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // Navigare
+    document.getElementById('next1').addEventListener('click', () => {
+      currentStep = 1;
+      showStep(currentStep);
+    });
+
+    document.getElementById('next2').addEventListener('click', () => {
+      if (validateCurrentStep()) {
+        currentStep = 2;
+        showStep(currentStep);
+      }
+    });
+
+    document.getElementById('next3').addEventListener('click', () => {
+      if (validateCurrentStep()) {
+        currentStep = 3;
+        showStep(currentStep);
+      }
+    });
+
+    document.getElementById('back1').addEventListener('click', () => {
+      currentStep = 0;
+      showStep(currentStep);
+    });
+
+    document.getElementById('back2').addEventListener('click', () => {
+      currentStep = 1;
+      showStep(currentStep);
+    });
+  </script>
+</body>
+</html>
