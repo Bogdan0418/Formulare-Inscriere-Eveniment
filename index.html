@@ -29,11 +29,11 @@
         <div class="form-step">
           <h2>Date personale</h2>
           <div class="input-box">
-            <input type="text" id="nume" required pattern="^[A-Za-zĂăÎîȘșȚțâÂ]+$" title="Doar de litere. Ex: Ion">
+            <input type="text" id="nume" required pattern="^[A-Za-zĂăÎîȘșȚțâÂ]+$" title="Doar litere. Ex: Ion">
             <label>Nume</label>
           </div>
           <div class="input-box">
-            <input type="text" id="prenume" required pattern="^[A-Za-zĂăÎîȘșȚțâÂ]+$" title="Doar de litere. Ex: Popescu">
+            <input type="text" id="prenume" required pattern="^[A-Za-zĂăÎîȘșȚțâÂ]+$" title="Doar litere. Ex: Popescu">
             <label>Prenume</label>
           </div>
           <div class="input-box">
@@ -64,11 +64,32 @@
           </div>
           <div class="btn-box">
             <button type="button" id="back2">Înapoi</button>
-            <button type="button" id="next3">Trimite</button>
+            <button type="button" id="next3">Următorul</button>
           </div>
         </div>
 
-        <!-- Pasul 4 - Succes -->
+        <!-- Pasul 4 - Încărcare CV -->
+        <div class="form-step">
+          <h2>Încărcare CV</h2>
+          <p style="text-align:center; margin-bottom:15px;">
+            Te rugăm să încarci CV-ul tău în format <strong>PDF</strong> sau <strong>DOCX</strong>.
+          </p>
+          <div class="input-box file-box">
+            <input 
+              type="file" 
+              id="cvUpload" 
+              accept=".pdf, .doc, .docx" 
+              required>
+            <!-- <label for="cvUpload">Selectează fișierul</label> -->
+          </div>
+
+          <div class="btn-box">
+            <button type="button" id="back3">Înapoi</button>
+            <button type="button" id="next4">Trimite</button>
+          </div>
+        </div>
+
+        <!-- Pasul 5 - Succes -->
         <div class="form-step">
           <h2>Înscriere finalizată</h2>
           <p class="success-message">
@@ -96,7 +117,6 @@
       });
     }
 
-    // ✅ Funcție care validează doar câmpurile vizibile
     function validateCurrentStep() {
       const activeStep = formSteps[currentStep];
       const inputs = activeStep.querySelectorAll('input, textarea');
@@ -109,7 +129,7 @@
       return true;
     }
 
-    // Navigare
+    // Navigare între pași
     document.getElementById('next1').addEventListener('click', () => {
       currentStep = 1;
       showStep(currentStep);
@@ -129,6 +149,13 @@
       }
     });
 
+    document.getElementById('next4').addEventListener('click', () => {
+      if (validateCurrentStep()) {
+        currentStep = 4;
+        showStep(currentStep);
+      }
+    });
+
     document.getElementById('back1').addEventListener('click', () => {
       currentStep = 0;
       showStep(currentStep);
@@ -136,6 +163,11 @@
 
     document.getElementById('back2').addEventListener('click', () => {
       currentStep = 1;
+      showStep(currentStep);
+    });
+
+    document.getElementById('back3').addEventListener('click', () => {
+      currentStep = 2;
       showStep(currentStep);
     });
   </script>
